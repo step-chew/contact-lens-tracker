@@ -1,0 +1,22 @@
+{
+  "name": "gcal-api",
+  "version": "1.0.0",
+  "description": "Basic usage of Google Calendar API invoked using Amazon Lambda",
+  "main": "scripts/lambda.js",
+  "scripts": {
+    "start": "node scripts/lambda.js",
+    "debug": "nodemon scripts/lambda.js",
+    "tryme": "nodemon scripts/tryme.js"
+  },
+  "author": "Stephen",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^1.11.0"
+  },
+  "dependencies": {
+    "jsonwebtoken": "^7.2.1",
+    "moment": "^2.17.1",
+    "request": "^2.79.0",
+    "request-promise": "^4.1.1"
+  }
+}
