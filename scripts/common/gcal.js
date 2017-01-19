@@ -34,7 +34,7 @@ const authenticate = () =>
         transform: body => JSON.parse(body),
     });
 
-const newEvent = (accessToken, title) => {
+const newEvent = (accessToken, title, location) => {
     const today = moment();
     return rp({
         method: 'POST',
@@ -52,7 +52,8 @@ const newEvent = (accessToken, title) => {
                 // to create a full day event, end date must equal to start date + 1,
                 // else yielding perculiar response when trying to get
                 date: today.add(1, 'days').format(ISO_DATE_FORMAT),
-            }
+            },
+            location,
         },
     })
 }
