@@ -46,21 +46,23 @@ exports.handler = (event, context, callback) => {
                 .catch(err => handleError(response, err));
             break;
         case 'POST':
-            createEvent()
-                .then(() => response(200, {success: "ok"}))
-                .catch(err => handleError(response, err));
-            break;
-            break;
-        case 'PUT':
-            // createEvent(response);
-            toggleEvent()
-                .then(() => response(200, {success: "ok"}))
-                .catch(err => handleError(response, err));
-            break;
-        case 'DELETE':
-            updateDisposeEvent()
-                .then(() => response(200, {success: "ok"}))
-                .catch(err => handleError(response, err));
+            switch (event.pathParameters.action) {
+                case 'new':
+                    createEvent(event.queryStringParameters.geo)
+                        .then(() => response(200, {success: "ok"}))
+                        .catch(err => handleError(response, err));
+                    break;
+                case 'dispose':
+                    updateDisposeEvent()
+                        .then(() => response(200, {success: "ok"}))
+                        .catch(err => handleError(response, err));
+                    break;
+                default:
+                    toggleEvent()
+                        .then(() => response(200, {success: "ok"}))
+                        .catch(err => handleError(response, err));
+                    break;
+            }
             break;
         default:
             response(406, {

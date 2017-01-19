@@ -40,8 +40,11 @@ const event = {
     },
     queryStringParameters: {
         'api_key': process.argv[3] || '',
-        second: process.argv[4] || '',
+        geo: '51.800147,-0.206406',
     },
+    pathParameters: {
+        action: process.argv[4],
+    }
 };
 
 const context = {
