@@ -45,7 +45,8 @@ exports.handler = (event, context, callback) => {
                 .catch(err => handleError(response, err));
             break;
         case 'POST':
-            switch (event.pathParameters.action) {
+            const action = (event.pathParameters || {}).action;
+            switch (action) {
                 case 'new':
                     createEvent(event.queryStringParameters.geo)
                         .then(() => response(200, {success: "ok"}))
