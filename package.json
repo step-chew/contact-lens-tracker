@@ -4,13 +4,16 @@
   "description": "Basic usage of Google Calendar API invoked using Amazon Lambda",
   "main": "scripts/lambda.js",
   "scripts": {
-    "start": "node scripts/lambda.js",
-    "debug": "nodemon scripts/lambda.js",
+    "start": "node lambda.js",
+    "debug": "nodemon lambda.js",
     "tryme": "nodemon scripts/tryme.js"
   },
   "author": "Stephen",
   "license": "ISC",
   "devDependencies": {
+    "del": "^2.2.2",
+    "gulp": "^3.9.1",
+    "gulp-zip": "^3.2.0",
     "nodemon": "^1.11.0"
   },
   "dependencies": {
