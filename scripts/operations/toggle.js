@@ -6,7 +6,9 @@ const ifttt = require('../common/ifttt')(process.env.IFTTT_MAKER);
 const moment = require('moment');
 
 module.exports = () =>
-    eventStatus.getLastEventWithStatus().then(({event, context}) => {
+    eventStatus.getLastEventWithStatus().then((status) => {
+        const event = status.event;
+        const context = status.context;
         const today = moment();
 
         // start date = today -> just started

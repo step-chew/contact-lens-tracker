@@ -1,5 +1,3 @@
-'use strict';
-
 const gcal = require('../common/gcal');
 const ifttt = require('../common/ifttt')(process.env.IFTTT_MAKER);
 const moment = require('moment');
@@ -28,22 +26,22 @@ const getContext = (startStr, endStr) => {
  */
 const renderMessage = (context) => {
     if (context.started) {
-        const daysCount = moment().diff(context.start, 'days');
-        switch (daysCount) {
+        const daysFromStart = moment().diff(context.start, 'days');
+        switch (daysFromStart) {
             case 0:
                 return `You've just started your lens today!`;
             default:
-                return `You're ${daysCount + 1} days into your new lens.`;
+                return `You're ${daysFromStart + 1} days into your new lens.`;
         }
     } else {
-        const daysCount = moment().diff(context.end, 'days');
-        switch (daysCount) {
+        const daysFromEnd = moment().diff(context.end, 'days');
+        switch (daysFromEnd) {
             case 0:
                 return `You've just disposed your lens today!`;
             case 1:
                 return `You've disposed your lens a day ago.`;
             default:
-                return `You've disposed your lens ${daysCount} days ago, time for a new one.`;
+                return `You've disposed your lens ${daysFromEnd} days ago, time for a new one.`;
         }
     }
 };

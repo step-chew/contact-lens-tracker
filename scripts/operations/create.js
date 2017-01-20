@@ -1,5 +1,3 @@
-'use strict';
-
 const gcal = require('../common/gcal');
 const ifttt = require('../common/ifttt')(process.env.IFTTT_MAKER);
 

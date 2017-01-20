@@ -1,5 +1,3 @@
-'use strict';
-
 const createEvent = require('./operations/create');
 const eventStatus = require('./operations/status');
 const toggleEvent = require('./operations/toggle');
@@ -23,9 +21,10 @@ const handleError = (response, error) => {
     } else {
         response(500, {
             message: error.message,
+            details: JSON.stringify(error, null, 2),
         });
     }
-}
+};
 
 exports.handler = (event, context, callback) => {
     const response = createResponse(callback);
