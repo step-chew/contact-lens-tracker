@@ -1,5 +1,3 @@
-'use strict';
-
 if (process.argv.length < 3) {
     console.log("[Usage] node lambda.js METHOD")
     return;
@@ -23,7 +21,7 @@ if (!validMethods.find(i => i === method)) {
     return;
 }
 
-const missing = require('./validate-env');
+const missing = require('./scripts/validate-env');
 if (missing && missing.length > 0) {
     console.error(`Environment variable(s) [${missing.join('; ')}] cannot be found.`);
     return;
@@ -58,4 +56,4 @@ const callback = (error, response) => {
     console.log(response.body);
 };
 
-require('./index.js').handler(event, context, callback);
+require('./scripts/index.js').handler(event, context, callback);
