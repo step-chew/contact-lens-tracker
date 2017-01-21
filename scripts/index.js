@@ -1,3 +1,5 @@
+const queryString = require('query-string');
+
 const createEvent = require('./operations/create');
 const eventStatus = require('./operations/status');
 const toggleEvent = require('./operations/toggle');
@@ -38,6 +40,8 @@ exports.handler = (event, context, callback) => {
         return;
     }
 
+    const bodyParams = queryString.parse(event.body);
+
     switch (event.httpMethod) {
         case 'GET':
             eventStatus()
@@ -48,7 +52,7 @@ exports.handler = (event, context, callback) => {
             const action = (event.pathParameters || {}).action;
             switch (action) {
                 case 'new':
-                    createEvent(event.queryStringParameters.geo)
+                    createEvent(event.queryStringParameters.geo || bodyParams.geo)
                         .then(() => response(200, {success: "ok"}))
                         .catch(err => handleError(response, err));
                     break;
@@ -58,7 +62,7 @@ exports.handler = (event, context, callback) => {
                         .catch(err => handleError(response, err));
                     break;
                 default:
-                    toggleEvent()
+                    toggleEvent(event.queryStringParameters.geo || bodyParams.geo)
                         .then(() => response(200, {success: "ok"}))
                         .catch(err => handleError(response, err));
                     break;

@@ -5,7 +5,7 @@ const gcal = require('../common/gcal');
 const ifttt = require('../common/ifttt')(process.env.IFTTT_MAKER);
 const moment = require('moment');
 
-module.exports = () =>
+module.exports = (geolocation) =>
     eventStatus.getLastEventWithStatus().then((status) => {
         const event = status.event;
         const context = status.context;
@@ -18,6 +18,6 @@ module.exports = () =>
             return ifttt.notify('AWS', 'No Action', `You've just disposed contact lens today!`);
         }
 
-        return (context.started) ? updateDisposeEvent(event.id) : createEvent();
+        return (context.started) ? updateDisposeEvent(event.id) : createEvent(geolocation);
     });
 ;
