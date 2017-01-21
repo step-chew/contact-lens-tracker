@@ -2,3 +2,4 @@ node_modules/
 resources/
 tryme.js
 *.zip
+build/
