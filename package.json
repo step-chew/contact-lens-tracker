@@ -13,8 +13,9 @@
   "devDependencies": {
     "del": "^2.2.2",
     "gulp": "^3.9.1",
-    "gulp-zip": "^3.2.0",
-    "nodemon": "^1.11.0"
+    "gulp-install": "^0.6.0",
+    "nodemon": "^1.11.0",
+    "run-sequence": "^1.2.2"
   },
   "dependencies": {
     "jsonwebtoken": "^7.2.1",

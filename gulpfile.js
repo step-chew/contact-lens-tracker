@@ -1,17 +1,29 @@
-const gulp = require('gulp');
-const zip = require('gulp-zip');
 const del = require('del');
+const gulp = require('gulp');
+const install = require('gulp-install');
+const runSequence = require('run-sequence');
 
 gulp.task('clean', () =>
-    del('*.zip')
+    del('./build/**')
 );
 
 gulp.task('build', ['clean'], () =>
     gulp.src([
             './**',
-            '!resources/*.{txt,json}',
-            '!*.*',
+            '!./resources/**/!(google.private.key)',
+            '!./node_modules/**',
+            '!./!(package.json)',
         ])
-        .pipe(zip('contact-lens-tracker.zip'))
-        .pipe(gulp.dest('.'))
+        .pipe(gulp.dest('./build'))
 );
+
+gulp.task('install', () => {
+    gulp.src('./build/package.json')
+        .pipe(install({production: true}))
+});
+
+gulp.task('dist', (done) => {
+    runSequence('build', 'install', () => {
+        done();
+    });
+});
