@@ -86,3 +86,9 @@ exports = module.exports = () =>
         })
 
 exports.getLastEventWithStatus = getLastEventWithStatus;
+
+// expose for unit test
+exports.getContext = getContext;
+
+// expose for unit test
+exports.renderMessage = renderMessage;

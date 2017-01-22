@@ -6,14 +6,18 @@
   "scripts": {
     "start": "node lambda.js",
     "debug": "nodemon lambda.js",
+    "test": "./node_modules/.bin/mocha --reporter spec",
     "tryme": "nodemon scripts/tryme.js"
   },
   "author": "Stephen",
   "license": "ISC",
   "devDependencies": {
+    "chai": "^3.5.0",
+    "chai-moment": "^0.1.0",
     "del": "^2.2.2",
     "gulp": "^3.9.1",
     "gulp-install": "^0.6.0",
+    "mocha": "^3.2.0",
     "nodemon": "^1.11.0",
     "run-sequence": "^1.2.2"
   },
