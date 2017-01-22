@@ -27,23 +27,13 @@ if (missing && missing.length > 0) {
     return;
 }
 
-const event = {
-    httpMethod: method,
-    body: '{"hello": "world"}',
-    headers: {
-        Accept: "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
-        "Accept-Encoding": "gzip, deflate, sdch",
-        "Accept-Language": "en-US,en;q=0.8",
-        Host: "1234567890.execute-api.us-east-1.amazonaws.com",
-    },
-    queryStringParameters: {
-        'api_key': process.argv[3] || '',
-        geo: '51.800147,-0.206406',
-    },
-    pathParameters: {
-        action: process.argv[4],
-    }
-};
+const event = require('./resources/request.json');
+event.queryStringParameters = Object.assign({}, event.queryStringParameters, {
+    'api_key': process.argv[3] || '',
+});
+event.pathParameters = Object.assign({}, event.pathParameters, {
+    action: process.argv[4],
+});
 
 const context = {
     getRemainingTimeInMillis: () => 1,
