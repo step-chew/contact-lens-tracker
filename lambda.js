@@ -21,7 +21,7 @@ if (!validMethods.find(i => i === method)) {
     return;
 }
 
-const missing = require('./scripts/validate-env');
+const missing = require('./validate-env');
 if (missing && missing.length > 0) {
     console.error(`Environment variable(s) [${missing.join('; ')}] cannot be found.`);
     return;
