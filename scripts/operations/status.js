@@ -50,7 +50,17 @@ const renderMessage = (context) => {
             case 0:
                 return `You've just started your lens today!`;
             default:
-                return `You're ${daysFromStart + 1} days into your new lens.`;
+                const expiryDate = getExpiryDate(context.start);
+                const daysLeft = expiryDate.diff(moment(), 'days');
+
+                if (moment().isSame(expiryDate)) {
+                    return 'DISPOSE your contact lens TODAY!';
+                }
+
+                // show days left if expiry date is less than a week away
+                return (daysLeft < 7)
+                    ? `You have ${daysLeft + 1} more days to go. Don't forget to dispose this ${moment.weekdays(expiryDate.day())}!`
+                    : `You're ${daysFromStart + 1} days into your new lens.`
         }
     } else {
         const daysFromEnd = moment().diff(context.end, 'days');
