@@ -22,6 +22,25 @@ const getContext = (startStr, endStr) => {
 };
 
 /**
+ * Calculate the estimated expiry date based on a pre-defined logic (
+ * with the assumption that it should end on a Friday).
+ * @param startStr Start date in ISO format (e.g. 2016-12-31)
+ * @return A moment.js date indicating the expiry date
+ */
+const getExpiryDate = (startStr) => {
+    const FRIDAY = 5; // in moment.js, Friday == 5
+    const THURSDAY = FRIDAY - 1; // in moment.js, Thursday == 4
+
+    const start = moment(startStr);
+    const startDay = start.day();
+
+    // if start day is on or after Thursday
+    const daysToAdd = ((startDay >= THURSDAY) ? 14 : 7) + (FRIDAY - startDay);
+
+    return start.add(daysToAdd, 'days');
+}
+
+/**
  * @param context {Context} object obtained from getContext() function.
  */
 const renderMessage = (context) => {
@@ -92,3 +111,6 @@ exports.getContext = getContext;
 
 // expose for unit test
 exports.renderMessage = renderMessage;
+
+// expose for unit test
+exports.getExpiryDate = getExpiryDate;
