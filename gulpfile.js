@@ -11,6 +11,7 @@ gulp.task('build', ['clean'], () =>
     gulp.src([
             './**',
             '!./resources/**/!(google.private.key)',
+            '!./test/**',
             '!./node_modules/**',
             '!./!(package.json)',
         ])
