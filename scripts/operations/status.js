@@ -10,7 +10,7 @@ const getContext = (startStr, endStr) => {
     const start = moment(startStr);
     // end date is always a day later if it's a full day event in GCal.
     const end = moment(endStr).subtract(1, 'days');
-    const duration = end.diff(start, 'days');
+    const duration = Math.ceil(end.diff(start, 'days', true));
 
     return {
         start,
@@ -45,13 +45,13 @@ const getExpiryDate = (startStr) => {
  */
 const renderMessage = (context) => {
     if (context.started) {
-        const daysFromStart = moment().diff(context.start, 'days');
+        const daysFromStart = Math.ceil(moment().diff(context.start, 'days', true));
         switch (daysFromStart) {
             case 0:
                 return `You've just started your lens today!`;
             default:
                 const expiryDate = getExpiryDate(context.start);
-                const daysLeft = expiryDate.diff(moment(), 'days');
+                const daysLeft = Math.ceil(expiryDate.diff(moment(), 'days', true));
 
                 if (moment().isSame(expiryDate)) {
                     return 'DISPOSE your contact lens TODAY!';
@@ -60,10 +60,10 @@ const renderMessage = (context) => {
                 // show days left if expiry date is less than a week away
                 return (daysLeft < 7)
                     ? `You have ${daysLeft + 1} more days to go. Don't forget to dispose this ${moment.weekdays(expiryDate.day())}!`
-                    : `You're ${daysFromStart + 1} days into your new lens.`
+                    : `You're ${daysFromStart} days into your new lens.`
         }
     } else {
-        const daysFromEnd = moment().diff(context.end, 'days');
+        const daysFromEnd = Math.ceil(moment().diff(context.end, 'days', true));
         switch (daysFromEnd) {
             case 0:
                 return `You've just disposed your lens today!`;
