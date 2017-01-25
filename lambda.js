@@ -28,6 +28,7 @@ if (missing && missing.length > 0) {
 }
 
 const event = require('./resources/request.json');
+event.httpMethod = method;
 event.queryStringParameters = Object.assign({}, event.queryStringParameters, {
     'api_key': process.argv[3] || '',
 });
