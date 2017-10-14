@@ -1,3 +1,4 @@
+const queryString = require('query-string');
 const router = require('express').Router();
 const index = require('../index');
 
@@ -10,25 +11,49 @@ router.use((req, res, next) => {
       })
       .end();
   } else {
-    console.log(req);
     next();
   }
 });
 
+const constructEventObject = req => ({
+  httpMethod: req.method,
+  queryStringParameters: req.query,
+  body: queryString.stringify(req.body),
+});
+
+const response = (res) => (err, {statusCode, headers, body}) => {
+  res
+    .status(statusCode)
+    .type(headers['Content-Type'])
+    .json(JSON.parse(body));
+};
+
 router.get('/', (req, res) => {
-  res.send('Status called!');
+  index.handler(constructEventObject(req), undefined, response(res));
 });
 
 router.post('/', (req, res) => {
-  res.send('Toggle called!');
+  index.handler(constructEventObject(req), undefined, response(res));
 });
 
 router.post('/new', (req, res) => {
-  res.send('New called!');
+  index.handler({
+      ...constructEventObject(req),
+      pathParameters: 'new',
+    },
+    undefined,
+    response(res)
+  );
 });
 
 router.post('/dispose', (req, res) => {
-  res.send('Dispose called!');
+  index.handler({
+      ...constructEventObject(req),
+      pathParameters: 'dispose',
+    },
+    undefined,
+    response(res)
+  );
 });
 
 module.exports = router;
