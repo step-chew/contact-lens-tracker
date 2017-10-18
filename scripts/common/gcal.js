@@ -2,10 +2,11 @@ const fs = require('fs');
 const jwt = require('jsonwebtoken');
 const moment = require('moment');
 const rp = require('request-promise');
+const path = require('path');
 
 const ISO_DATE_FORMAT = 'YYYY-MM-DD';
 const RFC3339_DATE_FORMAT = 'YYYY-MM-DD\\THH:mm:ss\\Z';
-const root = process.cwd();
+console.log(path.join(__dirname, '../../', 'resources', 'google.private.key')); //process.cwd();
 const calendarId = process.env.GOOGLE_CALENDER_ID;
 
 const getJwt = () => jwt.sign(
@@ -14,7 +15,7 @@ const getJwt = () => jwt.sign(
         scope: "https://www.googleapis.com/auth/calendar",
         aud: "https://www.googleapis.com/oauth2/v4/token",
     },
-    fs.readFileSync(`${root}/resources/google.private.key`),
+    fs.readFileSync(path.join(__dirname, '../../', 'resources', 'google.private.key')),
     {
         algorithm: 'RS256',
         expiresIn: '1h',
