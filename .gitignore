@@ -3,3 +3,4 @@ resources/**
 !resources/request.json
 tryme.js
 build/
+.vscode/
