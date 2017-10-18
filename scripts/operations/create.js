@@ -6,4 +6,4 @@ module.exports = (geolocation) =>
         .then(resp =>
             gcal.newEvent(resp.access_token, 'New Contact Lens', geolocation)
         )
-        .then(() => ifttt.notify('AWS', 'New Contact Lens'))
+        .then(() => ifttt.notify('New Contact Lens'))

@@ -13,10 +13,10 @@ module.exports = (geolocation) =>
 
         // start date == today -> just started
         if (today.isSame(context.start, 'day')) {
-            return ifttt.notify('AWS', 'No Action', `You've just started contact lens today!`);
+            return ifttt.notify('No Action', `You've just started contact lens today!`);
         }
         else if (today.isSame(context.end, 'day')) { // start date != today && end date = today -> just ended
-            return ifttt.notify('AWS', 'No Action', `You've just disposed contact lens today!`);
+            return ifttt.notify('No Action', `You've just disposed contact lens today!`);
         }
 
         return (context.started) ? updateDisposeEvent(event.id) : createEvent(geolocation);

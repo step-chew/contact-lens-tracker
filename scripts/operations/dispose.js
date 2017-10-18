@@ -9,8 +9,8 @@ module.exports = eventId =>
             
             // evtId is undefined if there is no previous event
             return !evtId
-                ? ifttt.notify('AWS', 'Error', 'No contact lens event found')
+                ? ifttt.notify('Error', 'No contact lens event found')
                 : gcal.authenticate()
                     .then(resp => gcal.updateEvent(resp.access_token, evtId))
-                    .then(() => ifttt.notify('AWS', 'Contact Lens Disposed'))
+                    .then(() => ifttt.notify('Contact Lens Disposed'))
         })

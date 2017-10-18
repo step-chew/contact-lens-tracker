@@ -108,10 +108,10 @@ exports = module.exports = () =>
     getLastEventWithStatus()
         .then((eventWithStatus) => {
             if (!eventWithStatus) {
-                return ifttt.notify('AWS', 'No Lens Record');
+                return ifttt.notify('No Lens Record');
             }
 
-            return ifttt.notify('AWS', 'Contact Lens Status', eventWithStatus.message);
+            return ifttt.notify('Contact Lens Status', eventWithStatus.message);
         })
 
 exports.getLastEventWithStatus = getLastEventWithStatus;
