@@ -1,13 +1,14 @@
 const del = require('del');
 const gulp = require('gulp');
 const install = require('gulp-install');
-const runSequence = require('run-sequence');
+const tar = require('gulp-tar');
+const gzip = require('gulp-gzip');
 
-gulp.task('clean', async () =>
-    del('./build')
-);
+const appName = 'contact-lens';
 
-gulp.task('build', async () =>
+const clean = async () => del('./build');
+
+const build = () =>
     gulp.src([
             './**',
             '!./resources/**/!(google.private.key)',
@@ -15,16 +16,25 @@ gulp.task('build', async () =>
             '!./node_modules/**',
             '!./!(package.json)',
         ])
-        .pipe(gulp.dest('./build'))
-);
+        .pipe(gulp.dest(`./build/${appName}`));
 
-gulp.task('install', async () => {
-    gulp.src('./build/package.json')
-        .pipe(install({production: true}))
-});
+const npmInstall = () => 
+    gulp.src(`./build/${appName}/package.json`)
+        .pipe(install({production: true}));
 
-gulp.task('dist', (done) => {
-    runSequence('build', 'install', () => {
-        done();
-    });
-});
+const compress = () => 
+    gulp.src([
+            `build/${appName}/**/*`,
+            `!build/${appName}/package*.json`,
+        ])
+        .pipe(tar(`${appName}.tar`))
+        .pipe(gzip())
+        .pipe(gulp.dest('./build/'));
+
+
+gulp.task('clean', clean);
+gulp.task('build', build);
+gulp.task('install', npmInstall);
+gulp.task('compress', compress);
+
+exports.default = gulp.series('clean', 'build', 'install', 'compress');

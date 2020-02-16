@@ -14,10 +14,11 @@
     "chai-moment": "^0.1.0",
     "del": "^5.1.0",
     "gulp": "^4.0.2",
-    "gulp-install": "^0.6.0",
+    "gulp-gzip": "^1.4.2",
+    "gulp-install": "^1.1.0",
+    "gulp-tar": "^3.1.0",
     "mocha": "^3.2.0",
-    "nodemon": "^1.11.0",
-    "run-sequence": "^1.2.2"
+    "nodemon": "^1.11.0"
   },
   "dependencies": {
     "body-parser": "^1.18.2",
