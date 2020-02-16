@@ -12,8 +12,8 @@
   "devDependencies": {
     "chai": "^3.5.0",
     "chai-moment": "^0.1.0",
-    "del": "^2.2.2",
-    "gulp": "^3.9.1",
+    "del": "^5.1.0",
+    "gulp": "^4.0.2",
     "gulp-install": "^0.6.0",
     "mocha": "^3.2.0",
     "nodemon": "^1.11.0",

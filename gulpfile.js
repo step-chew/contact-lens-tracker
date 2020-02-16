@@ -3,11 +3,11 @@ const gulp = require('gulp');
 const install = require('gulp-install');
 const runSequence = require('run-sequence');
 
-gulp.task('clean', () =>
-    del('./build/**')
+gulp.task('clean', async () =>
+    del('./build')
 );
 
-gulp.task('build', ['clean'], () =>
+gulp.task('build', async () =>
     gulp.src([
             './**',
             '!./resources/**/!(google.private.key)',
@@ -18,7 +18,7 @@ gulp.task('build', ['clean'], () =>
         .pipe(gulp.dest('./build'))
 );
 
-gulp.task('install', () => {
+gulp.task('install', async () => {
     gulp.src('./build/package.json')
         .pipe(install({production: true}))
 });
